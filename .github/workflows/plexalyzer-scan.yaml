@@ -11,5 +11,5 @@ jobs:
       - name: PLEXALYZER Analysis
         uses: plexicus/plexalyzer-action@main
         with:
-          plexalyzer-token: ${{ secrets.PLEXALYZER_TOKEN }}
+          plexalyzer-token: ${{ vars.PLEXALYZER_TOKEN }}
           repo-id: ${{ vars.COVULOR_REPO_ID }}
