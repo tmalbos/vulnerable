@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: PLEXALYZER Analysis
-        uses: plexicus/plexalyzer-action@v0.0.2-alpha
+        uses: plexicus/plexalyzer-action@main
         with:
           plexalyzer-token: ${{ secrets.PLEXALYZER_TOKEN }}
           repo-id: ${{ vars.COVULOR_REPO_ID }}
