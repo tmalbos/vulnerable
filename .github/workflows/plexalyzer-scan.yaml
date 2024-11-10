@@ -11,7 +11,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: PLEXALYZER Analysis
-        uses: plexicus/plexalyzer-action@v0.0.4-alpha
+        uses: plexicus/plexalyzer-action@main
         with:
           plexalyzer-token: ${{ vars.PLEXALYZER_TOKEN }}
           repo-id: ${{ vars.COVULOR_REPO_ID }}
