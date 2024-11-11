@@ -10,8 +10,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: PLEXALYZER Analysis
+      - name: Run PLEXALYZER Analysis
         uses: plexicus/plexalyzer-action@main
         with:
           plexalyzer-token: ${{ vars.PLEXALYZER_TOKEN }}
           repo-id: ${{ vars.COVULOR_REPO_ID }}
+          repo-name: ${{ github.repository }}
+          branch: ${{ github.event.pull_request.base.ref }}
+          url: ${{ github.event.repository.clone_url }}
