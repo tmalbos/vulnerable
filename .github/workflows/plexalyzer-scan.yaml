@@ -24,7 +24,7 @@ jobs:
       - name: Run PLEXALYZER Analysis
         uses: plexicus/plexalyzer-action@main
         with:
-          plexalyzer-token: ${{ secrets.PLEXALYZER_TOKEN }}
+          plexalyzer-token: ${{ vars.PLEXALYZER_TOKEN }}
           repo-id: ${{ vars.COVULOR_REPO_ID }}
           repo-name: ${{ github.repository }}
           branch: ${{ github.event.pull_request.base.ref }}
