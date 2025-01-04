@@ -22,6 +22,7 @@ jobs:
           changed_files=$(git diff --name-only "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}")
           echo "$changed_files" | jq -R -s -c 'split("\n")[:-1]' > files_to_scan.json
           echo "files_path=$(pwd)/files_to_scan.json" >> $GITHUB_ENV
+          cat $GITHUB_ENV
 
       - name: Set Empty Files Path if Not Set
         if: ${{ !vars.COVULOR_REPO_ID }}
