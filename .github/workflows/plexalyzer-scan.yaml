@@ -15,7 +15,6 @@ jobs:
 
       - name: Get Changed Files and Save to File
         id: get_changed_files
-        if: ${{ vars.COVULOR_REPO_ID }}
         shell: bash
         run: |
           # Capture changed files and save to a temporary file
@@ -23,15 +22,6 @@ jobs:
           echo "$changed_files" | jq -R -s -c 'split("\n")[:-1]' > files_to_scan.json
           echo "files_path=$(pwd)/files_to_scan.json" >> $GITHUB_ENV
           cat $GITHUB_ENV
-
-      - name: Set Empty Files Path if Not Set
-        if: ${{ !vars.COVULOR_REPO_ID }}
-        run: echo "files_path=" >> $GITHUB_ENV
-
-      - name: Run PLEXALYZER Docker Analysis
-        shell: bash
-        run: |
-          cat ${{ env.files_path }}
 
       - name: Run PLEXALYZER Analysis
         uses: plexicus/plexicus-action@dev
@@ -41,5 +31,5 @@ jobs:
           repo-name: ${{ github.repository }}
           branch: ${{ github.event.pull_request.base.ref }}
           url: ${{ github.event.repository.clone_url }}
-          # files-path: ${{ env.files_path }}
+          files-path: ${{ env.files_path }}
           workspace-path: ${{ github.workspace }}
