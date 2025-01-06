@@ -28,6 +28,11 @@ jobs:
         if: ${{ !vars.COVULOR_REPO_ID }}
         run: echo "files_path=" >> $GITHUB_ENV
 
+      - name: Run PLEXALYZER Docker Analysis
+        shell: bash
+        run: |
+          cat ${{ env.files_path }}
+
       - name: Run PLEXALYZER Analysis
         uses: plexicus/plexicus-action@dev
         with:
