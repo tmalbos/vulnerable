@@ -21,12 +21,12 @@ jobs:
           changed_files=$(git diff --name-only "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}")
           echo "$changed_files" | jq -R -s -c 'split("\n")[:-1]' > files_to_scan.json
           echo "files_path=$(pwd)/files_to_scan.json" >> $GITHUB_ENV
-          cat $GITHUB_ENV
 
       - name: Run PLEXALYZER Analysis
         uses: plexicus/plexicus-action@dev
         with:
           plexalyzer-token: ${{ secrets.PLEXALYZER_TOKEN }}
+          default-owner: ${{ github.event.repository.owner.login }}
           repo-id: ${{ vars.COVULOR_REPO_ID }}
           repo-name: ${{ github.repository }}
           branch: ${{ github.event.pull_request.base.ref }}
