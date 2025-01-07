@@ -40,10 +40,7 @@ jobs:
           findings_output: ${{ env.findings_output }}
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            echo "$github-token"
-            echo "${{ process.env.findings_output }}"
-          
+          script: |          
             const findings = JSON.parse(process.env.findings_output || "[]");
             const prNumber = context.payload.pull_request.number;
       
