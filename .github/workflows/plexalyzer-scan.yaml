@@ -52,7 +52,10 @@ jobs:
             const prNumber = context.payload.pull_request.number;
       
             let bodyMessage = findings.length
-              ? "### Analysis Results\nThe following issues were found:\n\n" + findings.map((issue, i) => `- **Issue ${i + 1}**: ${issue}`).join("\n")
+              ? "### Analysis Results\nThe following issues were found:\n\n" +
+                findings
+                  .map((issue, i) => `- **${issue.title}** (${issue.severity}) in \`${issue.file_path}:${issue.original_line}\``)
+                  .join("\n")
               : "### Analysis Results\nNo issues found.";
       
             await github.rest.issues.createComment({
