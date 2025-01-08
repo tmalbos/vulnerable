@@ -45,8 +45,11 @@ jobs:
           findings_output: ${{ env.findings_output }}
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |          
-            const findings = JSON.parse(process.env.findings_output || "[]");
+          script: |
+            const fs = require('fs');
+
+            const findingsPath = process.env.findings_file;
+            const findings = JSON.parse(fs.readFileSync(findingsPath, 'utf8') || "[]");
             const prNumber = context.payload.pull_request.number;
       
             let bodyMessage = findings.length
