@@ -26,7 +26,7 @@ jobs:
         uses: plexicus/plexicus-action@dev
         with:
           plexalyzer-token: ${{ secrets.PLEXALYZER_TOKEN }}
-          # default-owner: ${{ github.event.repository.owner.login }}
+          default-owner: ${{ github.event.repository.owner.login }}
           repo-id: ${{ vars.COVULOR_REPO_ID }}
           repo-name: ${{ github.repository }}
           branch: ${{ github.event.pull_request.base.ref }}
