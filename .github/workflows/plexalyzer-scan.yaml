@@ -33,34 +33,3 @@ jobs:
           url: ${{ github.event.repository.clone_url }}
           files-path: ${{ env.files_path }}
           workspace-path: ${{ github.workspace }}
-        continue-on-error: true
-
-      - name: Debug Findings Output
-        run: |
-          cat ${{ env.findings_output }}
-
-      - name: Comment Findings on PR
-        uses: actions/github-script@v6
-        env:
-          findings_output: ${{ env.findings_output }}
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const fs = require('fs');
-            const findingsPath = process.env.findings_output;
-            const findings = JSON.parse(fs.readFileSync(findingsPath, 'utf8') || "[]");
-            const prNumber = context.payload.pull_request.number;
-      
-            let bodyMessage = findings.length
-              ? "### Analysis Results\nThe following issues were found:\n\n" +
-                findings
-                  .map((issue, i) => `- **${issue.title}** (${issue.severity}) in \`${issue.file_path}:${issue.original_line}\``)
-                  .join("\n")
-              : "### Analysis Results\nNo issues found.";
-      
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: prNumber,
-              body: bodyMessage,
-            });
